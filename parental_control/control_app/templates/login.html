@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+            width: 350px;
+        }
+
+        .login-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-login:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-card">
+    <h3 class="login-title">🔐 Login</h3>
+
+    <!-- 🔥 ERROR MESSAGE -->
+    {% if error %}
+        <div id="error-box" class="alert alert-danger text-center">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <input type="text" name="username" class="form-control" placeholder="Username" required>
+        </div>
+
+        <div class="mb-3">
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+        </div>
+
+        <button type="submit" class="btn btn-login w-100">Login</button>
+    </form>
+</div>
+
+<!-- 🔥 AUTO CLEAR SCRIPT -->
+<script>
+    // Auto hide error after 3 seconds
+    setTimeout(function () {
+        let errorBox = document.getElementById("error-box");
+        if (errorBox) {
+            errorBox.style.display = "none";
+        }
+    }, 3000);
+
+    // Remove error when typing
+    document.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", function () {
+            let errorBox = document.getElementById("error-box");
+            if (errorBox) {
+                errorBox.style.display = "none";
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

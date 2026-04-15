@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .form-card {
+        max-width: 500px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .form-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 10px !important;
+    }
+
+    .btn-save {
+        border-radius: 10px;
+        width: 100%;
+        font-weight: bold;
+    }
+
+    label {
+        font-weight: 600;
+    }
+</style>
+
+<div class="form-card">
+
+    <h3 class="form-title">🔧 Add / Edit URL</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>Website URL</label>
+            {{ form.url }}
+        </div>
+
+        <div class="mb-3">
+            <label>Minimum Age</label>
+            {{ form.min_age }}
+        </div>
+
+        <div class="mb-3">
+            <label>Maximum Age</label>
+            {{ form.max_age }}
+        </div>
+
+        <div class="mb-3 form-check">
+            {{ form.is_active }}
+            <label class="form-check-label">Active (Blocked)</label>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-save">💾 Save</button>
+    </form>
+
+</div>
+
+{% endblock %}

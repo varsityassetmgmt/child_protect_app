@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="card p-4" style="max-width:400px;">
+    <h3>👋 Welcome {{ user.username }}</h3>
+
+    <p><strong>Age:</strong> {{ profile.age }}</p>
+    <p><strong>Role:</strong> {{ profile.role }}</p>
+
+    <p><strong>Status:</strong>
+        {% if restriction == "Restricted User" %}
+            <span class="text-danger">{{ restriction }}</span>
+        {% else %}
+            <span class="text-success">{{ restriction }}</span>
+        {% endif %}
+    </p>
+</div>
+
+{% endblock %}

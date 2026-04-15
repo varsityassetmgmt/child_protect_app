@@ -1,0 +1,9 @@
+
+
+
+def user_profile(request):
+    if request.user.is_authenticated:
+        return {
+            "profile": getattr(request.user, "userprofile", None)
+        }
+    return {}

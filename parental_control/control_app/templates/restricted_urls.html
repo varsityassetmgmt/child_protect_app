@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>🚫 Restricted URLs</h3>
+
+<!-- 🔍 Search -->
+<form method="GET" class="d-flex mb-3">
+    <input type="text" name="search" value="{{ search }}" class="form-control me-2" placeholder="Search URL">
+    <button class="btn btn-primary">Search</button>
+</form>
+
+<!-- ➕ Add Button -->
+<a href="/add-url/" class="btn btn-success mb-3">+ Add URL</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>URL</th>
+            <th>Min Age</th>
+            <th>Max Age</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for url in page_obj %}
+        <tr>
+            <td>{{ url.url }}</td>
+            <td>{{ url.min_age }}</td>
+            <td>{{ url.max_age }}</td>
+            <td>
+                {% if url.is_active %}
+                    <span class="text-danger">Blocked</span>
+                {% else %}
+                    <span class="text-success">Allowed</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="/edit-url/{{ url.id }}/" class="btn btn-warning btn-sm">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- 📄 Pagination -->
+<nav>
+    <ul class="pagination">
+
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search }}">Previous</a>
+        </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">{{ page_obj.number }}</span>
+        </li>
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search }}">Next</a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+{% endblock %}
